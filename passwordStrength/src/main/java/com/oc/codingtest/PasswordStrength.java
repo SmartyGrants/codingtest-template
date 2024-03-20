@@ -29,8 +29,30 @@ public class PasswordStrength {
    * @return
    */
   public int getMaxRepetitionCount(String password) {
-    return 1;
-  }
+    int count = 1;
+
+    String upperPassword = password.toUpperCase(); // turns it to upper-case because it's meant to be case insensitive
+   
+    Map<Character, Integer> charCount = new HashMap<>(); // hash map stores characters and how often they appear
+    for (char c : upperPassword.toCharArray()) {
+        if (charCount.containsKey(c)) {
+            
+            charCount.put(c, charCount.get(c) + 1);
+        } else {
+            
+            charCount.put(c, 1);
+        }
+    }
+
+    //gets the character with highest corresponding Integer and returns it as int;
+    for (int values : charCount.values()){ 
+        if (values > count){
+            count = values;
+        }
+    }
+
+    return count;
+}
 
   /**
    * Max Sequence length - The length of the longest ascending/descending sequence of alphabetical or numeric characters
@@ -47,6 +69,30 @@ public class PasswordStrength {
    * @return
    */
   public int getMaxSequenceLen(String password) {
-    return 0;
+
+    StringBuilder sb = new StringBuilder(); // filter out non alpha numeric characters
+    for (int i = 0; i < password.length(); i++) {
+        char c = password.charAt(i);
+        if (Character.isLetterOrDigit(c)) {
+            sb.append(c);
+        }
+    }
+    String upperPassword = sb.toString().toUpperCase(); // make it uppercase as it's meant to be case insensitive
+
+    int max = 0; // to be returned
+    int tracker = 1; // tracks sequences
+    
+    for (int i = 0; i < upperPassword.length() - 1; i++) {
+        if (upperPassword.charAt(i) + 1 == upperPassword.charAt(i + 1) || upperPassword.charAt(i) - 1 == upperPassword.charAt(i + 1)) {
+            tracker++;
+            max = Math.max(max, tracker); // checks to see which is larger to be returned
+        } else {
+            tracker = 1; // resets sequence when loop ends
+        }
+    }
+    
+    
+    return max;
+
   }
 }

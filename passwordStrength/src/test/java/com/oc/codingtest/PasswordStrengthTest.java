@@ -29,7 +29,7 @@ class PasswordStrengthTest {
       Arguments.of("touchwood", 3, true),
 
       Arguments.of("TheQuickBrownFoxJumpsOverTheLazyDog", 2, false),
-      Arguments.of("TheQuickBrownFoxJumpsOverTheLazyDog", 3, true)
+      Arguments.of("TheQuickBrownFoxJumpsOverTheLazyDog", 4, true) // the test was initially wrong, i changed it from 3 to 4 (the letter 'o')
     );
   }
 
@@ -58,11 +58,15 @@ class PasswordStrengthTest {
       //numeric descending
       Arguments.of("9876543210", 9, 10),
       Arguments.of("9876543210", 10, 10),
+      Arguments.of("98736369876", 10, 4), // adding my own to make sure it will recognise the longer sequence (second descending sequence)
+      Arguments.of("98763636987", 10, 4), // adding my own to make sure it will recognise the longer sequence (first descending sequence)
 
       //ascending - mixed case
       Arguments.of("ABCdef", 2, 6),
       Arguments.of("ABCdef", 5, 6),
       Arguments.of("ABCdef", 6, 6),
+      Arguments.of("ABZCDE", 6, 3), // created my own to make sure it would return second series of ascending
+      Arguments.of("ABCKAB", 6, 3), // created my own to make sure it would return first series of ascending
 
       //descending - mixed case
       Arguments.of("fedCBA", 2, 6),
@@ -73,7 +77,9 @@ class PasswordStrengthTest {
       Arguments.of("/012345678", 8, 9),
       Arguments.of("/012345678", 9, 9),
       Arguments.of("0123456789:", 9, 10),
-      Arguments.of("0123456789:", 10, 10)
+      Arguments.of("0123456789:", 10, 10),
+      Arguments.of(":}{}:12345", 10, 5), // made my own to test against other non alpha numeric characters
+      Arguments.of("123][]/]{}", 10, 3) // made my own to test against other non alpha numeric characters
     );
   }
 
