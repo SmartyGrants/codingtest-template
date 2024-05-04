@@ -11,6 +11,6 @@ Run ```./gradlew test``` at the project's root
 
 ## Password Strength
 This is the main exercise module. The aim of this exercise is to make the unit tests pass by implementing the methods in PasswordStrength.java
-Once you are happy with your exercise submit a pull request to our repo.
+Once you are happy with your exercise submit a pull request to our repo..
 
 
