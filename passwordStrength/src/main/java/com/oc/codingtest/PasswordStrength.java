@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static java.util.stream.Collectors.*;
 
 public class PasswordStrength {
 
@@ -29,7 +28,22 @@ public class PasswordStrength {
    * @return
    */
   public int getMaxRepetitionCount(String password) {
-    return 1;
+    // Initialization and checks for password
+    HashMap<Character, Integer> hashMap = new HashMap<>();
+    if (password == null || password.length() == 0){
+      return 0;
+    }
+    for (char c : password.toCharArray()) {
+      if (hashMap.containsKey(c)) {
+          // If the character is already in the hashMap, increment its value
+          hashMap.put(c, hashMap.get(c) + 1);
+      } else {
+          // If the character is not in the hashMap, add it with a count of 1
+            hashMap.put(c, 1);
+          }
+    }
+    // Returning the max repeated value
+    return Collections.max(hashMap.values());
   }
 
   /**
@@ -47,6 +61,35 @@ public class PasswordStrength {
    * @return
    */
   public int getMaxSequenceLen(String password) {
-    return 0;
+    // Initialization and checks for password
+    int[] arr = new int[password.length()];
+    int longestLength = 0, currentAscLength = 0, currentDescLength = 0;
+    if (password == null || password.length() == 0){
+      return 0;
+    }
+    // Get chars in the password and store it in the array
+    for (int i = 0; i < password.length(); i++) {
+      if (Character.isLetterOrDigit(password.charAt(i))) {
+        // storing ASCII values in array
+        arr[i] = password.toLowerCase().charAt(i);
+      }
+    }
+    // Iterate through the array to find max sequence in asc or desc order
+    for (int i = 1; i < arr.length; i++) {
+      int difference = arr[i] - arr[i - 1];
+      if (difference == 1) {
+        currentAscLength++;
+        currentDescLength = 0;
+      } else if (difference == -1) {
+        currentDescLength++;
+        currentAscLength = 0;
+      } else {
+        currentAscLength = 0;
+        currentDescLength = 0;
+      }
+      // find the max sequence and return it
+      longestLength = Math.max(longestLength, Math.max(currentAscLength, currentDescLength));
+    }
+    return longestLength != 0 ? longestLength + 1 : longestLength;
   }
 }
