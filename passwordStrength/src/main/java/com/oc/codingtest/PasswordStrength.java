@@ -2,8 +2,8 @@ package com.oc.codingtest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.*;
+import static java.util.stream.Collectors.*;
 
 
 public class PasswordStrength {
@@ -62,7 +62,6 @@ public class PasswordStrength {
    */
   public int getMaxSequenceLen(String password) {
     // Initialization and checks for password
-    //int[] arr = new int[password.length()];
     int longestLength = 0, currentAscLength = 0, currentDescLength = 0;
     if (password == null || password.isEmpty()){
       return 0;
@@ -81,15 +80,19 @@ public class PasswordStrength {
     // Iterate through the array to find max sequence in asc or desc order
     for (int i = 1; i < arr.length; i++) {
       int difference = arr[i] - arr[i - 1];
-      if (difference == 1) {
-        currentAscLength++;
-        currentDescLength = 0;
-      } else if (difference == -1) {
-        currentDescLength++;
-        currentAscLength = 0;
-      } else {
-        currentAscLength = 0;
-        currentDescLength = 0;
+      // use a switch case to increment the counters
+      switch (difference) {
+        case 1:
+          currentAscLength++;
+          currentDescLength = 0;
+          break;
+        case -1:
+          currentDescLength++;
+          currentAscLength = 0;
+          break;
+        default:
+          currentAscLength = 0;
+          currentDescLength = 0;
       }
       // find the max sequence and return it
       longestLength = Math.max(longestLength, Math.max(currentAscLength, currentDescLength));
