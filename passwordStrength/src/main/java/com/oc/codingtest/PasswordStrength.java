@@ -30,7 +30,7 @@ public class PasswordStrength {
   public int getMaxRepetitionCount(String password) {
     // Initialization and checks for password
     HashMap<Character, Integer> hashMap = new HashMap<>();
-    if (password == null || password.length() == 0){
+    if (password == null || password.isEmpty()){
       return 0;
     }
     for (char c : password.toCharArray()) {
@@ -64,7 +64,7 @@ public class PasswordStrength {
     // Initialization and checks for password
     int[] arr = new int[password.length()];
     int longestLength = 0, currentAscLength = 0, currentDescLength = 0;
-    if (password == null || password.length() == 0){
+    if (password == null || password.isEmpty()){
       return 0;
     }
     // Get chars in the password and store it in the array
