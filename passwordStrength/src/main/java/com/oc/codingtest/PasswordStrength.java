@@ -62,18 +62,22 @@ public class PasswordStrength {
    */
   public int getMaxSequenceLen(String password) {
     // Initialization and checks for password
-    int[] arr = new int[password.length()];
+    //int[] arr = new int[password.length()];
     int longestLength = 0, currentAscLength = 0, currentDescLength = 0;
     if (password == null || password.isEmpty()){
       return 0;
     }
-    // Get chars in the password and store it in the array
-    for (int i = 0; i < password.length(); i++) {
-      if (Character.isLetterOrDigit(password.charAt(i))) {
-        // storing ASCII values in array
-        arr[i] = password.toLowerCase().charAt(i);
+    // Create an IntStream of characters (represented as ASCII integers)
+    int[] arr = password.chars().map(ch -> {
+      char c = (char) ch;
+      if (Character.isLetterOrDigit(c)) {
+        // If the character is a letter or digit, convert it to lowercase and return its ASCII value
+        return Character.toLowerCase(c);
+      } else {
+        // If the character is a special character return 0
+        return 0;
       }
-    }
+    }).toArray();
     // Iterate through the array to find max sequence in asc or desc order
     for (int i = 1; i < arr.length; i++) {
       int difference = arr[i] - arr[i - 1];
