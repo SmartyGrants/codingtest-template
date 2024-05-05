@@ -19,11 +19,11 @@ class PasswordStrengthTest {
 
   private static Stream<Arguments> maxRepetitionsArgProvider() {
     return Stream.of(
-            Arguments.of("abcdefg", 1),
-            Arguments.of("password", 2),
-            Arguments.of("touchwood", 3),
-            // The check should be case-sensitive
-            Arguments.of("TheQuickBrownFoxJumpsOverTheLazyDog", 3)
+      Arguments.of("abcdefg", 1),
+      Arguments.of("password", 2),
+      Arguments.of("touchwood", 3),
+      // The check should be case-sensitive
+      Arguments.of("TheQuickBrownFoxJumpsOverTheLazyDog", 3)
     );
   }
 
@@ -36,26 +36,26 @@ class PasswordStrengthTest {
 
   private static Stream<Arguments> maxSequenceLenArgProvider() {
     return Stream.of(
-            //simple ascending
-            Arguments.of("abcdef", 6),
-            //simple descending
-            Arguments.of("fedcba", 6),
-            //numeric ascending
-            Arguments.of("0123456789", 10),
-            //numeric descending
-            Arguments.of("9876543210", 10),
-            //ascending - mixed case
-            Arguments.of("ABCdef", 6),
-            //descending - mixed case
-            Arguments.of("fedCBA", 6),
+      //simple ascending
+      Arguments.of("abcdef", 6),
+      //simple descending
+      Arguments.of("fedcba", 6),
+      //numeric ascending
+      Arguments.of("0123456789", 10),
+      //numeric descending
+      Arguments.of("9876543210", 10),
+      //ascending - mixed case
+      Arguments.of("ABCdef", 6),
+      //descending - mixed case
+      Arguments.of("fedCBA", 6),
 
-            //Exclude/handle non-alphanumeric chars
-            Arguments.of("/012345678", 9),
-            Arguments.of("0123456789:", 10),
-            Arguments.of("01234*567:", 5),
+      //Exclude/handle non-alphanumeric chars
+      Arguments.of("/012345678", 9),
+      Arguments.of("0123456789:", 10),
+      Arguments.of("01234*567:", 5),
 
-            //Ascending and descending mixed
-            Arguments.of("23454321", 5)
+      //Ascending and descending mixed
+      Arguments.of("23454321", 5)
     );
   }
 
