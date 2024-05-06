@@ -5,7 +5,7 @@ Repo for the coding tests we use during our technical interviews.
 Java 17
 A text editor or an IDE
 The build system is Gradle. The gradle wrapper is provided so you don't need to install gradle natively.
-
+AAAAAAA
 ## Building
 Run ```./gradlew test``` at the project's root
 
